@@ -107,15 +107,15 @@ export const ExperimentCard: React.FC<ExperimentCardProps> = ({
       {/* Card Body */}
       <div className="p-5 flex flex-col gap-3">
         {/* Row 1: Experiment Title & Score */}
-        <div className="flex items-baseline justify-between gap-2">
+        <div className="flex items-start justify-between gap-2">
           <h2 
             onClick={() => onSelect(experiment)}
             title={experiment.title}
-            className="font-sans font-bold text-lg text-stone-900 truncate leading-snug cursor-pointer hover:text-[#7A8A32] transition-colors"
+            className="font-sans font-bold text-lg text-stone-900 line-clamp-2 leading-snug cursor-pointer hover:text-[#7A8A32] transition-colors"
           >
             {experiment.title || 'Experiment Title'}
           </h2>
-          <div className="flex items-center gap-1 text-stone-900 font-bold text-sm shrink-0">
+          <div className="flex items-center gap-1 text-stone-900 font-bold text-sm shrink-0 pt-0.5">
             <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
             <span>{overallScore}/10</span>
           </div>

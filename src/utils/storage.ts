@@ -2,7 +2,8 @@ import { Challenge, Experiment, Ingredient } from '../types';
 import { STARTER_CHALLENGES, STARTER_EXPERIMENTS, STARTER_INGREDIENTS } from '../data/initialData';
 
 const STORAGE_KEYS = {
-  EXPERIMENTS: 'ice_cream_lab_experiments_v1',
+  EXPERIMENTS: 'ice_cream_lab_experiments_v2',
+  EXPERIMENTS_LEGACY: 'ice_cream_lab_experiments_v1',
   INGREDIENTS: 'ice_cream_lab_ingredients_v1',
   CHALLENGES: 'ice_cream_lab_challenges_v1',
 };
@@ -10,15 +11,30 @@ const STORAGE_KEYS = {
 export function loadExperiments(): Experiment[] {
   try {
     const data = localStorage.getItem(STORAGE_KEYS.EXPERIMENTS);
-    if (data) {
+    if (data !== null) {
       const parsed = JSON.parse(data);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      if (Array.isArray(parsed)) return parsed;
+    }
+
+    // Check legacy storage only for user-created custom experiments (excluding starter ones)
+    const legacyData = localStorage.getItem(STORAGE_KEYS.EXPERIMENTS_LEGACY);
+    if (legacyData) {
+      const parsedLegacy = JSON.parse(legacyData);
+      if (Array.isArray(parsedLegacy)) {
+        const starterIds = new Set(STARTER_EXPERIMENTS.map((e) => e.id));
+        const userCustomExperiments = parsedLegacy.filter((e) => !starterIds.has(e.id));
+        if (userCustomExperiments.length > 0) {
+          saveExperiments(userCustomExperiments);
+          return userCustomExperiments;
+        }
+      }
     }
   } catch (err) {
     console.error('Failed to load experiments from localStorage', err);
   }
-  saveExperiments(STARTER_EXPERIMENTS);
-  return STARTER_EXPERIMENTS;
+
+  // Default is empty list so user sees the empty state until an experiment is added
+  return [];
 }
 
 export function saveExperiments(experiments: Experiment[]): void {

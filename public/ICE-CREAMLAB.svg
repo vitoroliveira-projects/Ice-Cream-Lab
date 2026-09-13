@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 180" width="100%" height="100%" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Emilys+Candy&amp;family=Quicksand:wght@600;700&amp;display=swap');
+      .flask-stroke {
+        stroke: #F8A86C;
+        stroke-width: 3.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .flask-fill {
+        fill: #F8A86C;
+      }
+      .logo-text-title {
+        font-family: 'Curlz MT', 'Emilys Candy', cursive, sans-serif;
+        font-size: 38px;
+        fill: #FAF0DF;
+        letter-spacing: 0.5px;
+      }
+      .logo-text-sub {
+        font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        fill: #FAF0DF;
+        letter-spacing: 1.5px;
+      }
+    </style>
+  </defs>
+
+  <!-- Graphic: Beaker / Flask with Ice Cream scoops & straw -->
+  <g id="beaker-graphic" transform="translate(0, 2)">
+    <!-- Striped Straw -->
+    <g id="straw">
+      <!-- Straw base tube -->
+      <path d="M125 32 L106 10" stroke="#F8A86C" stroke-width="6.5" stroke-linecap="round" />
+      <!-- Inner hollow / contrast -->
+      <path d="M124 31 L107 11" stroke="#413d3e" stroke-width="3" stroke-linecap="round" />
+      <!-- Diagonal stripes -->
+      <line x1="120" y1="23" x2="124" y2="27" stroke="#F8A86C" stroke-width="2.2" stroke-linecap="round" />
+      <line x1="115" y1="17" x2="119" y2="21" stroke="#F8A86C" stroke-width="2.2" stroke-linecap="round" />
+      <line x1="110" y1="11" x2="114" y2="15" stroke="#F8A86C" stroke-width="2.2" stroke-linecap="round" />
+    </g>
+
+    <!-- Ice Cream Scoops -->
+    <!-- Top Central Scoop -->
+    <path d="M126 36 C124 24 133 13 140 13 C147 13 156 23 154 36" class="flask-stroke" />
+    
+    <!-- Left Scoop -->
+    <path d="M128 35 C121 28 113 32 113 41 C113 47 117 50 122 52" class="flask-stroke" />
+
+    <!-- Right Scoop -->
+    <path d="M152 35 C159 28 167 32 167 41 C167 47 163 50 158 52" class="flask-stroke" />
+
+    <!-- Melts / Drips into flask neck -->
+    <path d="M122 52 C125 52 127 50 129 48 C132 46 135 55 137 60 C138.5 63.5 142.5 63.5 144 59 C145.5 55 148 47 151 48 C154 49 156 52 158 52" class="flask-stroke" />
+
+    <!-- Flask Rim / Lip -->
+    <path d="M121 54 C118 54 117 56 119 58 C121 60 124 61 126 62" class="flask-stroke" />
+    <path d="M159 54 C162 54 163 56 161 58 C159 60 156 61 154 62" class="flask-stroke" />
+
+    <!-- Flask Neck & Triangular Body -->
+    <!-- Left side of flask down to base -->
+    <path d="M126 62 C126 68 123 72 120 78 L108 98 C105 103 108 107 114 107 L166 107 C172 107 175 103 172 98 L160 78 C157 72 154 68 154 62" class="flask-stroke" />
+
+    <!-- Graduation Measurement Ticks (Right Side of Flask) -->
+    <line x1="147" y1="84" x2="160" y2="84" class="flask-stroke" stroke-width="2.6" />
+    <line x1="150" y1="91" x2="164" y2="91" class="flask-stroke" stroke-width="2.6" />
+    <line x1="152" y1="98" x2="168" y2="98" class="flask-stroke" stroke-width="2.6" />
+
+    <!-- Mix-in Bubbles (Left Side of Flask) -->
+    <circle cx="120" cy="98" r="4.2" class="flask-fill" />
+    <circle cx="128" cy="93" r="3.2" class="flask-fill" />
+    <circle cx="126" cy="101" r="2.4" class="flask-fill" />
+  </g>
+
+  <!-- Typography: Ice Cream -->
+  <text x="140" y="145" text-anchor="middle" class="logo-text-title">Ice Cream</text>
+  
+  <!-- Typography: lab -->
+  <text x="140" y="170" text-anchor="middle" class="logo-text-sub">lab</text>
+</svg>

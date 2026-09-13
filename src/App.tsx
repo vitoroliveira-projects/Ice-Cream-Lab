@@ -72,7 +72,11 @@ export default function App() {
 
   const handleConfirmDelete = () => {
     if (experimentToDelete) {
-      setExperiments((prev) => prev.filter((e) => e.id !== experimentToDelete.id));
+      setExperiments((prev) => {
+        const updated = prev.filter((e) => e.id !== experimentToDelete.id);
+        saveExperiments(updated);
+        return updated;
+      });
       if (selectedExperiment?.id === experimentToDelete.id) {
         setSelectedExperiment(null);
       }
@@ -87,10 +91,11 @@ export default function App() {
   const handleSaveExperiment = (experiment: Experiment) => {
     setExperiments((prev) => {
       const exists = prev.some((e) => e.id === experiment.id);
-      if (exists) {
-        return prev.map((e) => (e.id === experiment.id ? experiment : e));
-      }
-      return [experiment, ...prev];
+      const updated = exists
+        ? prev.map((e) => (e.id === experiment.id ? experiment : e))
+        : [experiment, ...prev];
+      saveExperiments(updated);
+      return updated;
     });
 
     setIsFormOpen(false);
@@ -124,11 +129,12 @@ export default function App() {
         const imported = JSON.parse(event.target?.result as string);
         if (Array.isArray(imported)) {
           setExperiments(imported);
+          saveExperiments(imported);
         } else {
-          alert('Invalid format: expected a list of experiments.');
+          console.error('Invalid format: expected a list of experiments.');
         }
       } catch {
-        alert('Could not parse JSON file.');
+        console.error('Could not parse JSON file.');
       }
     };
     reader.readAsText(file);
@@ -136,9 +142,8 @@ export default function App() {
   };
 
   const handleResetSampleData = () => {
-    if (window.confirm('Reset journal with sample experiments?')) {
-      setExperiments(STARTER_EXPERIMENTS);
-    }
+    setExperiments(STARTER_EXPERIMENTS);
+    saveExperiments(STARTER_EXPERIMENTS);
   };
 
   // Filtered experiments
@@ -186,8 +191,13 @@ export default function App() {
         {/* Top: Branding & "Add new experiment" button */}
         <div className="space-y-6">
           <div>
-            <h1 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-white">
-              Ice Cream Lab
+            <h1 className="w-full flex justify-center">
+              <img
+                src="/logo2.svg"
+                alt="Ice Cream Lab"
+                className="w-44 sm:w-48 h-auto object-contain select-none"
+                referrerPolicy="no-referrer"
+              />
             </h1>
           </div>
 
@@ -195,7 +205,7 @@ export default function App() {
             <button
               onClick={handleOpenNewExperiment}
               id="add-new-experiment-btn"
-              className="w-full sm:w-auto px-5 py-2.5 bg-[#C5CC84] hover:bg-[#B5BD75] text-[#1b2110] rounded-full font-bold text-base shadow-xs transition-transform active:scale-98 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full px-5 py-2.5 bg-[#C5CC84] hover:bg-[#B5BD75] text-[#1b2110] rounded-full font-bold text-base shadow-xs transition-transform active:scale-98 cursor-pointer flex items-center justify-center gap-2"
             >
               <span className="text-[16px]">Add new experiment</span>
             </button>
@@ -263,7 +273,7 @@ export default function App() {
 
         {/* Bottom Sidebar Tools */}
         <div className="pt-6 mt-6 border-t border-white/15 flex items-center justify-between text-xs text-stone-300">
-          <span className="text-[11px] font-medium">
+          <span className="text-[12px] font-bold">
             {experiments.length} {experiments.length === 1 ? 'experiment' : 'experiments'}
           </span>
 
@@ -296,7 +306,7 @@ export default function App() {
       </aside>
 
       {/* Main Content Area (Matching screenshot warm cream canvas and card layout) */}
-      <main className="flex-1 p-6 sm:p-10 lg:p-12 overflow-y-auto min-h-screen">
+      <main className="flex-1 p-6 sm:p-10 lg:p-12 overflow-y-auto min-h-screen text-[20px]">
         {/* Active Filter Bar (if filtering) */}
         {(searchQuery || selectedProgram !== 'all' || selectedVerdict !== 'all') && (
           <div className="mb-6 flex items-center justify-between text-xs text-stone-600 bg-white/60 backdrop-blur-xs p-3 rounded-2xl border border-stone-200">
@@ -333,30 +343,30 @@ export default function App() {
         ) : (
           /* Empty State */
           <div className="bg-white rounded-3xl p-10 sm:p-14 text-center border border-stone-200 max-w-md mx-auto space-y-4 my-12 shadow-xs">
-            <h2 className="font-sans text-xl font-bold text-stone-900">
+            <h2 className="font-sans text-2xl font-bold text-stone-900">
               {searchQuery || selectedProgram !== 'all'
                 ? 'No matching experiments found'
                 : 'No experiments yet'}
             </h2>
-            <p className="text-xs sm:text-sm text-stone-500 leading-relaxed">
+            <p className="text-xs sm:text-sm text-stone-500 leading-relaxed font-bold">
               {searchQuery || selectedProgram !== 'all'
                 ? 'Try clearing your search or selecting all programs.'
-                : 'Tap "Add new experiment" to log your first Ninja CREAMi ice cream experiment!'}
+                : 'Tap "Add new experiment" to log your first ice cream experiment!'}
             </p>
 
-            <div className="pt-2 flex justify-center gap-2">
+            <div className="pt-2 flex flex-col items-center gap-2.5 max-w-xs mx-auto w-full">
               <button
                 onClick={handleOpenNewExperiment}
-                className="px-5 py-2.5 rounded-full bg-[#8EA13E] hover:bg-[#7D8F35] text-stone-950 font-medium text-xs shadow-xs cursor-pointer"
+                className="w-full px-5 py-2.5 bg-[#C5CC84] hover:bg-[#B5BD75] text-[#1b2110] rounded-full font-bold text-base shadow-xs transition-transform active:scale-98 cursor-pointer flex items-center justify-center gap-2"
               >
-                Add new experiment
+                <span className="text-[16px]">Add new experiment</span>
               </button>
               {experiments.length === 0 && (
                 <button
                   onClick={handleResetSampleData}
-                  className="px-4 py-2 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-medium cursor-pointer"
+                  className="w-full px-5 py-2.5 rounded-full font-bold text-base border border-stone-300 bg-white hover:bg-stone-100 text-[#1b2110] shadow-xs transition-transform active:scale-98 cursor-pointer flex items-center justify-center gap-2"
                 >
-                  Load sample experiments
+                  <span className="text-[16px]">Load sample experiments</span>
                 </button>
               )}
             </div>

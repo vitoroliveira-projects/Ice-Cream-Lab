@@ -1,22 +1,38 @@
-// Ensure window.fetch is writable / has a setter so libraries or polyfills assigning to window.fetch do not throw:
-// "TypeError: Cannot set property fetch of #<Window> which has only a getter"
 try {
   let currentFetch = window.fetch;
-  const desc = Object.getOwnPropertyDescriptor(window, 'fetch');
-  if (desc && (!desc.writable || !desc.set)) {
-    Object.defineProperty(window, 'fetch', {
-      configurable: true,
-      enumerable: true,
-      get() {
-        return currentFetch;
-      },
-      set(fn) {
-        currentFetch = fn;
-      },
-    });
+  const ensureSetter = (target: any) => {
+    if (!target) return;
+    try {
+      const desc = Object.getOwnPropertyDescriptor(target, 'fetch');
+      if (desc && (desc.configurable || desc.set === undefined)) {
+        Object.defineProperty(target, 'fetch', {
+          configurable: true,
+          enumerable: desc.enumerable !== undefined ? desc.enumerable : true,
+          get() {
+            return currentFetch;
+          },
+          set(fn) {
+            currentFetch = fn;
+          },
+        });
+      }
+    } catch {}
+  };
+
+  let curr: any = window;
+  while (curr) {
+    ensureSetter(curr);
+    try {
+      curr = Object.getPrototypeOf(curr);
+    } catch {
+      break;
+    }
   }
-} catch (e) {
-  // Ignore descriptor errors if not allowed
+  if (typeof Window !== 'undefined' && Window.prototype) {
+    ensureSetter(Window.prototype);
+  }
+} catch {
+  // Ignore descriptor errors
 }
 
 import {StrictMode} from 'react';
