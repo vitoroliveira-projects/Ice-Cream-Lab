@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      // Ensure window.fetch is configurable / writable so polyfills or scripts can safely assign to it
+      (function() {
+        try {
+          var currentFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            writable: true,
+            value: currentFetch
+          });
+        } catch (e) {
+          // If already defined with only a getter, redefine getter/setter
+          try {
+            var originalDesc = Object.getOwnPropertyDescriptor(window, 'fetch');
+            var fetchVal = window.fetch;
+            Object.defineProperty(window, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: function() { return fetchVal; },
+              set: function(v) { fetchVal = v; }
+            });
+          } catch (err) {}
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ice Cream Lab | Ninja CREAMi Experimental Journal</title>
+    <meta name="description" content="Ninja CREAMi experimental recipe journal and lab notebook for inventing, tracking, and rating custom ice cream flavours." />
+    <meta property="og:title" content="Ice Cream Lab | Ninja CREAMi Experimental Journal" />
+    <meta property="og:description" content="Ninja CREAMi experimental recipe journal and lab notebook for inventing, tracking, and rating custom ice cream flavours." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-amber-50/40 text-stone-800 antialiased selection:bg-amber-200 selection:text-amber-950 min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

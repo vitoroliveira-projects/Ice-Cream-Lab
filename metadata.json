@@ -1,0 +1,6 @@
+{
+  "name": "Ice Cream Lab",
+  "description": "Ninja CREAMi experimental recipe journal and lab notebook for inventing, tracking, and rating custom ice cream flavours.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
