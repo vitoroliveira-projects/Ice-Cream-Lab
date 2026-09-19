@@ -333,7 +333,7 @@ export const ExperimentFormModal: React.FC<ExperimentFormModalProps> = ({
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="h-10 w-full px-2 sm:px-3 rounded-xl border border-stone-300 text-sm text-stone-900 bg-stone-50 focus:bg-white focus:ring-2 focus:ring-[#8EA13E] focus:outline-hidden box-border"
+                className="h-10 w-[165.328125px] px-2 sm:px-3 rounded-xl border border-stone-300 text-sm text-stone-900 bg-stone-50 focus:bg-white focus:ring-2 focus:ring-[#8EA13E] focus:outline-hidden box-border"
               />
             </div>
 
