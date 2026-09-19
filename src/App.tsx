@@ -187,9 +187,9 @@ export default function App() {
       />
 
       {/* Left Sidebar (styled with background-color: #413d3e) */}
-      <aside className="w-full md:w-64 lg:w-72 bg-[#413d3e] text-stone-100 p-6 sm:p-8 flex flex-col justify-between shrink-0 md:h-screen md:sticky md:top-0 z-20 shadow-xs">
+      <aside className="w-full md:w-64 lg:w-72 bg-[#413d3e] text-stone-100 p-6 sm:p-7 flex flex-col justify-between shrink-0 md:sticky md:top-0 md:self-start md:h-screen md:max-h-screen md:overflow-y-auto z-20 shadow-xs">
         {/* Top: Branding & "Add new experiment" button */}
-        <div className="space-y-6">
+        <div className="space-y-6 shrink-0">
           <div>
             <h1 className="w-full flex justify-center">
               <img
@@ -272,7 +272,7 @@ export default function App() {
         </div>
 
         {/* Bottom Sidebar Section */}
-        <div className="mt-6 pt-4">
+        <div className="mt-6 pt-4 shrink-0">
           <p id="gift-dedication" className="text-[12px] text-stone-400 font-bold mb-3 select-none">
             A gift for Yann 🎁
           </p>
