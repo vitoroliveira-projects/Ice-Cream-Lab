@@ -321,8 +321,8 @@ export const ExperimentFormModal: React.FC<ExperimentFormModalProps> = ({
             />
           </div>
 
-          {/* Date, Freeze time, Spin Program - Side by side and fully aligned */}
-          <div className="grid grid-cols-3 gap-2.5 sm:gap-3 items-start">
+          {/* Date, Freeze time, Spin Program - Stacked on mobile, 3 columns on sm+ */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-start">
             {/* Date */}
             <div className="min-w-0">
               <label className="flex items-center gap-1.5 text-sm font-bold text-stone-700 uppercase tracking-wider mb-1.5 h-5">
@@ -333,7 +333,7 @@ export const ExperimentFormModal: React.FC<ExperimentFormModalProps> = ({
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="h-10 w-[165.328125px] px-2 sm:px-3 rounded-xl border border-stone-300 text-sm text-stone-900 bg-stone-50 focus:bg-white focus:ring-2 focus:ring-[#8EA13E] focus:outline-hidden box-border"
+                className="h-10 w-full sm:w-[165.328125px] px-2 sm:px-3 rounded-xl border border-stone-300 text-sm text-stone-900 bg-stone-50 focus:bg-white focus:ring-2 focus:ring-[#8EA13E] focus:outline-hidden box-border"
               />
             </div>
 
