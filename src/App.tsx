@@ -271,36 +271,42 @@ export default function App() {
           </div>
         </div>
 
-        {/* Bottom Sidebar Tools */}
-        <div className="pt-6 mt-6 border-t border-white/15 flex items-center justify-between text-xs text-stone-300">
-          <span className="text-[12px] font-bold">
-            {experiments.length} {experiments.length === 1 ? 'experiment' : 'experiments'}
-          </span>
+        {/* Bottom Sidebar Section */}
+        <div className="mt-6 pt-4">
+          <p id="gift-dedication" className="text-[12px] text-stone-400 font-bold mb-3 select-none">
+            A gift for Yann 🎁
+          </p>
 
-          <div className="flex items-center gap-1.5">
-            <button
-              onClick={handleExportData}
-              title="Export experiments to JSON"
-              className="p-1.5 bg-white/15 hover:bg-white/25 rounded-lg text-white transition-colors cursor-pointer"
-            >
-              <Download className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={handleImportClick}
-              title="Import JSON"
-              className="p-1.5 bg-white/15 hover:bg-white/25 rounded-lg text-white transition-colors cursor-pointer"
-            >
-              <Upload className="w-3.5 h-3.5" />
-            </button>
-            {experiments.length === 0 && (
+          <div className="pt-3 border-t border-white/15 flex items-center justify-between text-xs text-stone-300">
+            <span className="text-[12px] font-bold">
+              {experiments.length} {experiments.length === 1 ? 'experiment' : 'experiments'}
+            </span>
+
+            <div className="flex items-center gap-1.5">
               <button
-                onClick={handleResetSampleData}
-                title="Load sample experiments"
+                onClick={handleExportData}
+                title="Export experiments to JSON"
                 className="p-1.5 bg-white/15 hover:bg-white/25 rounded-lg text-white transition-colors cursor-pointer"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
+                <Download className="w-3.5 h-3.5" />
               </button>
-            )}
+              <button
+                onClick={handleImportClick}
+                title="Import JSON"
+                className="p-1.5 bg-white/15 hover:bg-white/25 rounded-lg text-white transition-colors cursor-pointer"
+              >
+                <Upload className="w-3.5 h-3.5" />
+              </button>
+              {experiments.length === 0 && (
+                <button
+                  onClick={handleResetSampleData}
+                  title="Load sample experiments"
+                  className="p-1.5 bg-white/15 hover:bg-white/25 rounded-lg text-white transition-colors cursor-pointer"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </aside>
